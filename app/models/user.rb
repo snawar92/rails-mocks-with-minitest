@@ -7,4 +7,13 @@ class User < ApplicationRecord
 
   has_many :notifications, foreign_key: :recipient_id
   has_many :services
+
+  def geocode(service: GoogleMapsAPI)
+    lat, lng = service.geocode(address)
+
+    update(
+      latitude: lat,
+      longitude: lng,
+    )
+  end
 end
